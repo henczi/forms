@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meghatalmazás</title>
+<style>
+#printArea{
+	width: 700px;
+margin: auto;
+		line-height: 2;
+		font-size:18px;
+}
+.p50{
+width: 50%;
+}
+#kelt{
+display:inline-block;
+}
+#alairas{
+display:inline-block;
+}
+#tanuk, #keltalairas{
+width:100%;
+}
+#tanu1{
+display:inline-block;
+}
+#tanu2{
+display:inline-block;
+}
+.center{
+	text-align:center;
+}
+.edit{
+	font-weight:bold;
+width:20px;
+}
+.marginLeft{
+	margin-left:4em;
+display:inline-block;
+}
+.p50 p{
+	margin-top:0;
+	margin-bottom:0;
+}
+@media print {
+	body * {
+visibility: hidden;
+	}
+#printArea, #printArea * {
+visibility: visible;
+}
+#printArea {
+position: absolute;
+padding: 15mm;
+left: 0;
+top: 0;
+}
+}
+</style>
+</head>
+<body>
+<div id="printArea">
+<br>
+<h1 class="center">MEGHATALMAZÁS</h1>
+<br>
+
+<div>
+Alulírott: <span contenteditable class="edit" >nev</span>
+<br>
+<div class="marginLeft">
+(Szül. hely: <span contenteditable class="edit" >hely</span>, 
+ <span contenteditable class="edit" >ev</span>. év
+ <span contenteditable class="edit" >ho</span>. hó 
+ <span contenteditable class="edit" >nap</span>. nap
+ <br>
+ Anyja neve: <span contenteditable class="edit" >anyjaneve</span>
+ <br>
+ Sz.ig.szám: <span contenteditable class="edit" >szigszam</span>
+ <br>
+ Lakcím: <span contenteditable class="edit" >lakcim</span>)
+</div>
+<br>
+meghatalmazom <span contenteditable class="edit" >nev</span>-t
+<br>
+<div class="marginLeft">
+(Szül. hely: <span contenteditable class="edit" >hely</span>, 
+ <span contenteditable class="edit" >ev</span>. év
+ <span contenteditable class="edit" >ho</span>. hó 
+ <span contenteditable class="edit" >nap</span>. nap
+ <br>
+ Anyja neve: <span contenteditable class="edit" >anyjaneve</span>
+ <br>
+ Sz.ig.szám: <span contenteditable class="edit" >szigszam</span>
+ <br>
+ Lakcím: <span contenteditable class="edit" >lakcim</span>)
+</div>
+<br>
+, hogy helyettem 
+<span contenteditable class="edit" >ugyleiras</span>
+kapcsolatos ügyekben eljárjon.
+<br>
+Ez a meghatalmazás <span contenteditable class="edit" >idopont</span>-ig érvényes.
+</div> 
+<br>
+<div id="keltalairas">
+<div id="kelt" class="p50">
+<p class="center">____________________________</p>
+<p class="center">Kelt: (Város, év. hó. nap.)</p>
+</div><!--
+--><div id="alairas" class="p50">
+<p class="center">____________________________</p>
+<p class="center">aláírás (meghatalmazó)</p>
+</div>
+</div>
+<div id="tanuk">
+<p>Tanuk:</p>
+<div id="tanu1" class="tanu p50">
+<p>Név: <span contenteditable class="edit" >nev</span></p>
+<p>Lakcím: <span contenteditable class="edit">lakcim</span></p>
+<p>Sz.ig.szám: <span contenteditable class="edit">szigszam</span></p>
+<p class="center">____________________________</p>
+<p class="center">aláírás</p>
+</div><!--
+--><div id="tanu2" class="tanu p50" >
+<p>Név: <span contenteditable class="edit" >nev</span></p>
+<p>Lakcím: <span contenteditable class="edit">lakcim</span></p>
+<p>Sz.ig.szám: <span contenteditable class="edit">szigszam</span></p>
+<p class="center">____________________________</p>
+<p class="center">aláírás</p>
+</div>
+</div>
+</div>
+<script>
+function Save(){
+	localStorage.setItem("data", JSON.stringify([].slice.call(document.querySelectorAll('.edit')).map(x=>x.textContent)));
+	console.log("dono");
+}
+window.onload = function(){
+	if(!localStorage.getItem("data"))
+		return;
+	var d = JSON.parse(localStorage.getItem("data"));
+	var els = document.querySelectorAll('.edit');
+	for(var i = 0; i < els.length; i++){
+		els[i].textContent = d[i];
+		console.log("do");
+	}
+}
+</script>
+<button onclick="Save()">Mentés</button> 
+<button onclick="window.print()">Nyomtatás</button> 
+</body>
+</html>
