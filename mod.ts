@@ -42,6 +42,7 @@ async function handleRequest(request: Request) {
             const response = await fetch(formUrl);
             const headers = new Headers(response.headers);
             headers.set("content-type", "text/html; charset=utf-8");
+            headers.set('content-security-policy', ' default-src \'none\'; style-src \'unsafe-inline\'; script-src \'unsafe-inline\'');
             return new Response(response.body, { ...response, headers });
         }
     }
